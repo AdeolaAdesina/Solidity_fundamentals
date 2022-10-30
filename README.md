@@ -308,3 +308,71 @@ Contract SampleMap
 mapping (unit => address)  Variables;
 ```
 
+
+# Functions
+
+Solidity is a high level language for the EVM. 
+
+The EVM under the hood does what we call EVM calls, known as “message calls”. From a higher perspective, Solidity knows two kind of function calls:
+
+- internal ones: do not create an EVM call
+- external ones: create an EVM call
+
+![Screenshot_138](https://user-images.githubusercontent.com/29931071/198895817-bb291cec-dfa0-4ff6-a815-12228aa3a268.png)
+
+Let’s look at them in more details:
+
+1 public : visible everywhere (within the contract itself and other contracts or addresses).
+
+Therefore, it is part of the contract interface (ABI). It can be called internally or via messages.
+
+2 private : visible only by the contract it is defined in, not derived contracts.
+
+These functions are not part of the contract interface (ABI).
+
+NB: Everything that is inside a contract is visible to all observers external to the blockchain. Making something private only prevents other contracts from reading or modifying the information, but it will still be visible to the whole world outside of the blockchain.
+
+3 internal : visible by the contract itself and contracts deriving from it.
+
+Those functions can be accessed internally, without using this. Moreover, they are not part of the contract interface (ABI)
+
+4 external : visible only by external contracts / addresses.
+
+Like public functions, external functions are part of the contract interface (ABI).
+
+However, they can’t be called internally by a function within the contract. For instance, calling f() does not work, but call this.f() works.
+
+The visibility specifier is given after the type for state variables and between parameter list and return parameter list for functions.
+
+## View vs Pure Functions?
+
+Functions can also accept different keywords. These messages are mentioned by the Solidity compiler. Here are some explanations about these two keywords.
+
+View functions can read contract’s storage, but can’t modify the contract storage. Therefore, they are used for getters.
+View functions do not require any gas in order to be executed if :
+
+It is called externally
+It is called internally by another view function.
+
+If a view function is called internally (within the same contract) from another function which is not a view function, it will still cost gas. This is because this other function creates a transaction on the Ethereum blockchain, and will need to be verified by every node on the network.
+
+Pure functions can neither read, nor modify the contract’s storage. They are used for pure computation, like functions that perform mathematic or cryptographic operations.
+
+```
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+contract ViewAndPure {
+    uint public x = 1;
+
+    // Promise not to modify the state.
+    function addToX(uint y) public view returns (uint) {
+        return x + y;
+    }
+
+    // Promise not to modify or read from the state.
+    function add(uint i, uint j) public pure returns (uint) {
+        return i + j;
+    }
+}
+```
