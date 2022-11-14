@@ -311,6 +311,15 @@ mapping (unit => address)  Variables;
 
 # Functions
 
+![Screenshot_192](https://user-images.githubusercontent.com/29931071/201717665-8b48ebe6-53d4-41e2-8bc9-7c8ad9ae47c4.png)
+
+![Screenshot_193](https://user-images.githubusercontent.com/29931071/201718043-99e4314a-30aa-4fe0-9877-dd7a883a0b1e.png)
+
+![Screenshot_194](https://user-images.githubusercontent.com/29931071/201718385-b428053c-73fe-4209-94ff-50bb2bb2c017.png)
+
+![Screenshot_195](https://user-images.githubusercontent.com/29931071/201719000-b40cabe5-b043-4b16-a678-08d2b41352af.png)
+
+
 Solidity is a high level language for the EVM. 
 
 The EVM under the hood does what we call EVM calls, known as “message calls”. From a higher perspective, Solidity knows two kind of function calls:
